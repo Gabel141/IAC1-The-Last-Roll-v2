@@ -123,7 +123,7 @@ func _input(event: InputEvent) -> void:
 func _take_damage(damage_amount: int):
 	print("ow")
 	current_health_points -= damage_amount
-	invulnerability_frames = 5
+	invulnerability_frames = 15
 	SignalBus.player_hit.emit()
 	
 	if current_health_points <= 0:
