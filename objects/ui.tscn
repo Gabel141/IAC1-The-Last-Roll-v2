@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://b85acd5gl65ny"]
+
+[node name="UI" type="CanvasLayer" unique_id=939214887]
+
+[node name="Health" type="Label" parent="." unique_id=597559192]
+offset_right = 33.0
+offset_bottom = 23.0
+text = "Health"
+
+[node name="Dashes" type="Label" parent="." unique_id=306641750]
+anchors_preset = -1
+anchor_top = 0.031000001
+anchor_bottom = 0.031000001
+offset_top = -0.08800125
+offset_right = 40.0
+offset_bottom = 22.911999
+text = "Dashes"
+
+[node name="NextWave" type="Button" parent="." unique_id=1706590791]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = -8.0
+offset_right = 4.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Ready for next wave?"
+
+[node name="WaveCounter" type="Label" parent="." unique_id=58379143]
+visible = false
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 23.0
+grow_horizontal = 0
+text = "Current Wave: 0"
+
+[node name="EnemiesLeft" type="Label" parent="." unique_id=2090654227]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Enemies Left: "
