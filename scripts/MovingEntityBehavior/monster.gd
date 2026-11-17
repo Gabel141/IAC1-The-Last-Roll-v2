@@ -26,8 +26,11 @@ func _physics_process(delta: float) -> void:
 
 		if velocity.x > 0:
 			$Sprite.flip_h = true
+			$AttackHitboxes.scale.x = -1.0
 		elif velocity.x < 0:
 			$Sprite.flip_h = false
+			$AttackHitboxes.scale.x = 1.0
+
 	move_and_slide()
 
 
@@ -44,13 +47,17 @@ func _attack():
 	attack_cooldown = 1
 
 	# need to add a wind up thing
-
+	
+	$Sprite.play("attack_windup")
+	print("winding up")
+	await get_tree().create_timer(0.6).timeout
+	print("swingin")
 	$Sprite.play("attacking")
-	$AttackHitbox/Attack.disabled = false
+	$AttackHitboxes/AttackHitbox/Attack.disabled = false
 	
 	await get_tree().create_timer(1.15).timeout
 	
-	$AttackHitbox/Attack.disabled = true
+	$AttackHitboxes/AttackHitbox/Attack.disabled = true
 	is_attacking = false
 	$Sprite.play("default")
 

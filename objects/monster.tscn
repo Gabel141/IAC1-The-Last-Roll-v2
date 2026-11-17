@@ -126,6 +126,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pdrut"]
 size = Vector2(48, 32)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_26k7k"]
+size = Vector2(48, 32)
+
 [node name="Monster" type="CharacterBody2D" unique_id=843985731 groups=["enemies"]]
 collision_layer = 4
 script = ExtResource("1_j6lmt")
@@ -140,30 +143,32 @@ sprite_frames = SubResource("SpriteFrames_x8skh")
 animation = &"attacking"
 autoplay = "default"
 
-[node name="DetectionHitbox" type="Area2D" parent="." unique_id=983472989]
+[node name="AttackHitboxes" type="Node2D" parent="." unique_id=2000965828]
+
+[node name="DetectionHitbox" type="Area2D" parent="AttackHitboxes" unique_id=983472989]
 collision_layer = 0
 collision_mask = 2
 
-[node name="Detection" type="CollisionShape2D" parent="DetectionHitbox" unique_id=1073882406]
+[node name="Detection" type="CollisionShape2D" parent="AttackHitboxes/DetectionHitbox" unique_id=1073882406]
 position = Vector2(-8, 0)
 shape = SubResource("RectangleShape2D_pdrut")
 
-[node name="AttackHitbox" type="Area2D" parent="." unique_id=2131498897 groups=["enemies"]]
+[node name="AttackHitbox" type="Area2D" parent="AttackHitboxes" unique_id=2131498897 groups=["enemies"]]
 collision_layer = 4
 collision_mask = 2
 
-[node name="Attack" type="CollisionShape2D" parent="AttackHitbox" unique_id=1674365220]
+[node name="Attack" type="CollisionShape2D" parent="AttackHitboxes/AttackHitbox" unique_id=914437811]
 position = Vector2(-8, 0)
-shape = SubResource("RectangleShape2D_pdrut")
+shape = SubResource("RectangleShape2D_26k7k")
 disabled = true
 
-[node name="MonsterHitbox" type="Area2D" parent="." unique_id=1096378386 groups=["enemies"]]
+[node name="MonsterHitbox" type="Area2D" parent="AttackHitboxes" unique_id=1096378386 groups=["enemies"]]
 collision_layer = 4
 collision_mask = 2
 
-[node name="MonsterHitbox" type="CollisionShape2D" parent="MonsterHitbox" unique_id=1006882473]
+[node name="MonsterHitbox" type="CollisionShape2D" parent="AttackHitboxes/MonsterHitbox" unique_id=1006882473]
 shape = SubResource("RectangleShape2D_3kct2")
 
-[connection signal="body_entered" from="DetectionHitbox" to="." method="_player_in_range"]
-[connection signal="body_exited" from="DetectionHitbox" to="." method="_player_exited_range"]
-[connection signal="area_entered" from="MonsterHitbox" to="." method="_player_hit_us"]
+[connection signal="body_entered" from="AttackHitboxes/DetectionHitbox" to="." method="_player_in_range"]
+[connection signal="body_exited" from="AttackHitboxes/DetectionHitbox" to="." method="_player_exited_range"]
+[connection signal="area_entered" from="AttackHitboxes/MonsterHitbox" to="." method="_player_hit_us"]

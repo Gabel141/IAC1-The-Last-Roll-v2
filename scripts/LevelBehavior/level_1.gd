@@ -22,7 +22,8 @@ var enemy_waves: Array = [
 	},
 	{
 		"Total Enemies": 40,
-		"Goblins": 20
+		"Goblins": 20,
+		"Last Wave": true
 	}
 ]
 
@@ -45,6 +46,7 @@ func _start_game():
 	_begin_next_wave()
 	UI.get_node("NextWave").disconnect("pressed", _start_game)
 	UI.get_node("NextWave").connect("pressed", _begin_next_wave)
+	UI.get_node("Debug").get_node("Button").connect("pressed", _force_end_wave)
 	UI.get_node("NextWave").text = "Next Wave?"
 
 func _wave_completed():
@@ -63,9 +65,8 @@ func _begin_next_wave():
 		Globals.total_enemy_count = 0
 		Globals.enemies_slain = 0
 		get_tree().reload_current_scene()
-
-
 	else:
+		UI.get_node("UpgradeSelection").hide()
 		print("begin next")
 		Globals.current_wave += 1
 		Globals.total_enemy_count = enemy_waves[Globals.current_wave]["Total Enemies"]
@@ -83,3 +84,9 @@ func _player_died():
 	UI.get_node("NextWave").show()
 	UI.get_node("WaveCounter").hide()
 # I want Levels to pass dict values solely, move the above code somewhere reusable
+
+func _force_end_wave():
+	Globals._all_enemies_slain()
+	for enemy in $Enemies.get_children():
+		enemy.queue_free()
+		

@@ -1,17 +1,17 @@
 extends CharacterEntity
 
 # BASE MOVEMENT VARIABLES
-var jump_velocity = -600.0
+var jump_velocity
 
 # DASH VARIABLES
-var dash_velocity = 600
-var is_dashing = false
-var dash_timer = 0.0
-var dash_duration = 0.2
-var dash_max_charges = 2
-var dash_current_charges = 2
-var dash_current_cooldown = 0.0
-var dash_cooldown = 1
+var dash_velocity
+var is_dashing
+var dash_timer
+var dash_duration
+var dash_max_charges
+var dash_current_charges
+var dash_current_cooldown
+var dash_cooldown
 
 # BASIC ATTACK VARIABLES
 
@@ -19,7 +19,6 @@ var attack_cooldown = 1
 var attack_cooling_value = 0
 var is_attacking = false
 var attack_duration = 0
-var can_turn_attacks = false # this'll be useful later
 
 func _ready() -> void:
 	max_health_points = 100
@@ -29,6 +28,25 @@ func _ready() -> void:
 	armor = 0
 	speed = 300.0
 	invulnerability_frames = 0
+
+	# BASE MOVEMENT VARIABLES
+	jump_velocity = -600.0
+
+	# DASH VARIABLES
+	dash_velocity = 600
+	is_dashing = false
+	dash_timer = 0.0
+	dash_duration = 0.2
+	dash_max_charges = 2
+	dash_current_charges = 2
+	dash_current_cooldown = 0.0
+	dash_cooldown = 1
+
+	attack_cooldown = 1
+	attack_cooling_value = 0
+	is_attacking = false
+	attack_duration = 0
+
 
 func _physics_process(delta: float) -> void: # need to move some stuff away from here, like attacks and shit
 	# Add the gravity.
@@ -139,6 +157,6 @@ func _heal(heal_amount: int):
 
 func _player_was_hit(area: Area2D):
 	if area.is_in_group("enemies") and invulnerability_frames <= 0:
-		var attacking_enemy = area.get_parent()
+		var attacking_enemy = area.get_parent().get_parent()
 		print("Player took " + str(attacking_enemy.attack_damage) +  " damage!")
 		_take_damage(attacking_enemy.attack_damage)
